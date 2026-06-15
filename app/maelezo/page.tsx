@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MAELEZO_POINTS, renderMaelezoPointContent } from "@/lib/maelezo-data";
 
 export const metadata: Metadata = {
   title: "Maelezo Muhimu — NIVLE Designs",
@@ -16,64 +17,6 @@ export const metadata: Metadata = {
 };
 
 const WHATSAPP_URL = "https://wa.me/255798987859";
-
-const MAELEZO_POINTS = [
-  {
-    emoji: "📖",
-    content: (
-      <>
-        <strong className="font-semibold text-text-on-dark">Soma vizuri</strong> maelezo ya
-        kila kifurushi (Basic/Standard/Premium) kabla ya kuagiza, ili uchague kinachofaa
-        tukio lako.
-      </>
-    ),
-  },
-  {
-    emoji: "⚠️",
-    content: (
-      <>
-        <strong className="font-semibold text-text-on-dark">
-          Hakiki MAJINA na NAMBA ZA SIMU
-        </strong>{" "}
-        za wageni wote kabla ya kutuma orodha. Ujumbe ukiwa umetumwa (hata kama jina/namba si
-        sahihi), inahesabika kama kadi limetumika — halirejeshwi bure.
-      </>
-    ),
-  },
-  {
-    emoji: "👥",
-    content: (
-      <>
-        Wakati wa kuorodhesha wageni,{" "}
-        <strong className="font-semibold text-text-on-dark">tofautisha wazi</strong> kati ya
-        &ldquo;<strong className="font-semibold text-text-on-dark">Single</strong>&rdquo; (mgeni
-        mmoja) na &ldquo;<strong className="font-semibold text-text-on-dark">Double</strong>
-        &rdquo; (wanandoa/familia — watu wawili) — hii inaathiri jinsi mwaliko unavyowekwa kwa
-        jina.
-      </>
-    ),
-  },
-  {
-    emoji: "✏️",
-    content: (
-      <>
-        <strong className="font-semibold text-text-on-dark">
-          Marekebisho ya bure ni MARA MOJA tu
-        </strong>{" "}
-        kwa kila design — mabadiliko ya ziada yanaweza kuwa na gharama ndogo ya ziada.
-      </>
-    ),
-  },
-  {
-    emoji: "📅",
-    content: (
-      <>
-        Taarifa za tukio (tarehe, mahali) zikibadilika BAADA ya kuthibitishwa, tuarifu HARAKA
-        ili kurekebisha ratiba ya &ldquo;Save the Date&rdquo;/ukumbusho (Standard &amp; Premium).
-      </>
-    ),
-  },
-];
 
 export default function MaelezoPage() {
   return (
@@ -118,7 +61,7 @@ export default function MaelezoPage() {
                 {point.emoji}
               </span>
               <p className="pt-1 text-sm leading-relaxed text-text-muted-on-dark sm:text-base">
-                {point.content}
+                {renderMaelezoPointContent(point.parts)}
               </p>
             </li>
           ))}

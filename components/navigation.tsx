@@ -9,6 +9,11 @@ import { WhatsAppButton } from "@/components/whatsapp-button";
 import { useMotionSettings } from "@/components/motion";
 import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
 
+const HOMEPAGE_NAV_LINKS = [
+  ...NAV_LINKS,
+  { label: "Maelezo", href: "#maelezo" },
+] as const;
+
 function NavLink({ href, label, onClick }: { href: string; label: string; onClick?: () => void }) {
   const reduced = usePrefersReducedMotion();
 
@@ -68,7 +73,7 @@ export function Navigation() {
           </motion.a>
 
           <div className="hidden items-center gap-8 sm:flex">
-            {NAV_LINKS.map((link) => (
+            {HOMEPAGE_NAV_LINKS.map((link) => (
               <NavLink key={link.href} href={link.href} label={link.label} />
             ))}
             <WhatsAppButton href={whatsappUrl(INQUIRY_MESSAGE)} size="sm">
@@ -100,7 +105,7 @@ export function Navigation() {
               className="overflow-hidden border-t border-white/8 bg-dark sm:hidden"
             >
               <div className="flex flex-col gap-1 px-4 py-4">
-                {NAV_LINKS.map((link, i) => (
+                {HOMEPAGE_NAV_LINKS.map((link, i) => (
                   <motion.a
                     key={link.href}
                     href={link.href}
