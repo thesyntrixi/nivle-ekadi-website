@@ -18,10 +18,11 @@ const packages = [
     accent: "#E85D75",
     features: [
       "Design ya kipekee ya mwaliko",
+      "SMS na WhatsApp mwaliko kwa wageni wote, ikiwa na vitufe vya RSVP (Nitakuwepo/Sitakuwepo)",
       "Faili ya picha ya ubora wa juu",
-      "Marekebisho moja ya bure",
-      "Uwasilishaji wa faili ndani ya masaa 48",
+      "Marekebisho moja ya bure, uwasilishaji ndani ya masaa 48",
     ],
+    popular: true,
   },
   {
     name: "Standard",
@@ -33,11 +34,10 @@ const packages = [
     accent: "#0066FF",
     features: [
       "Kila kitu katika Basic",
-      "SMS kwa wageni wote",
-      "Ujumbe wa kibinafsi kwa kila mgeni",
-      "Orodha ya wageni waliothibitisha kuhudhuria",
+      "Kadi ya \"Save the Date\" — inatumwa wiki 1-2 kabla ya tukio",
+      "Ukumbusho 1 (SMS na WhatsApp) siku 1-2 kabla ya tukio",
+      "Ujumbe wa kibinafsi kwa kila mgeni kwa jina lake",
     ],
-    popular: true,
   },
   {
     name: "Premium",
@@ -49,9 +49,9 @@ const packages = [
     accent: "#0066FF",
     features: [
       "Kila kitu katika Standard",
-      "WhatsApp pamoja na vitufe vya RSVP",
-      "Majibu ya Nitakuwepo / Sitakuwepo papo hapo",
-      "Msaada wa kibinafsi hadi siku ya tukio",
+      "Ukumbusho wa SIKU YA TUKIO asubuhi (SMS na WhatsApp)",
+      "Ufuatiliaji wa RSVP za mwisho kabla ya tukio",
+      "Msaada wa kipekee hadi siku ya tukio",
     ],
   },
 ];
