@@ -26,7 +26,7 @@ const packages = [
   },
   {
     name: "Standard",
-    price: "2,200",
+    price: "2,600",
     unit: "/kadi",
     bg: "#0F1117",
     text: "#F0F2F5",
@@ -41,7 +41,7 @@ const packages = [
   },
   {
     name: "Premium",
-    price: "2,500",
+    price: "4,000",
     unit: "/kadi",
     bg: "#E8F0FF",
     text: "#14213D",
@@ -52,6 +52,7 @@ const packages = [
       "Ukumbusho wa SIKU YA TUKIO asubuhi (SMS na WhatsApp)",
       "Ufuatiliaji wa RSVP za mwisho kabla ya tukio",
       "Msaada wa kipekee hadi siku ya tukio",
+      "Ukumbusho wa vikao na michango (mara 2 - SMS na WhatsApp)",
     ],
   },
 ];
