@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { MOCKUP_IMAGE } from "@/lib/constants";
@@ -154,6 +155,16 @@ export function PackageSection() {
             </StaggerItem>
           ))}
         </StaggerReveal>
+
+        <p className="mt-8 text-center text-sm text-muted">
+          ⚠️ Soma Maelezo Muhimu kuhusu vifurushi vyetu →{" "}
+          <Link
+            href="/maelezo"
+            className="font-medium text-brand underline underline-offset-2 transition-colors hover:text-brand-hover"
+          >
+            Soma hapa
+          </Link>
+        </p>
 
         <div className="mt-20">
           <Reveal>
