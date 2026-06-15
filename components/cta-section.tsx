@@ -534,19 +534,19 @@ export function CtaSection() {
                                   onClick={() =>
                                     setSelectedDesign(isSelected ? null : design.id)
                                   }
-                                  className={`relative overflow-hidden rounded-xl border-2 text-left transition-colors ${
+                                  className={`relative block w-full overflow-hidden rounded-xl border-2 text-left transition-colors ${
                                     isSelected
                                       ? "border-brand"
                                       : "border-white/10 hover:border-white/25"
                                   }`}
                                 >
-                                  <div className="relative aspect-[3/4] w-full">
+                                  <div className="relative aspect-[4/5] w-full min-h-[100px] overflow-hidden bg-white/5">
                                     <Image
                                       src={design.image}
                                       alt={design.name}
-                                      fill
-                                      className="object-cover"
-                                      sizes="120px"
+                                      width={200}
+                                      height={250}
+                                      className="size-full object-cover"
                                     />
                                   </div>
                                   <div className="px-2 py-2">
