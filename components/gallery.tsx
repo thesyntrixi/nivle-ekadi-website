@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { DESIGNS } from "@/lib/constants";
+import { DESIGNS } from "@/lib/designs-data";
 import { SectionHeader } from "@/components/section-header";
 import { Reveal, StaggerReveal, StaggerItem, useMotionSettings } from "@/components/motion";
 import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
