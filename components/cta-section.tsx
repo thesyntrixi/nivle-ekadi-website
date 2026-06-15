@@ -83,7 +83,8 @@ function MotionInput({
   onBlur: () => void;
 }) {
   return (
-    <motion.input
+    <motion.div
+      className="w-full rounded-xl border"
       animate={
         focused
           ? {
@@ -93,11 +94,14 @@ function MotionInput({
           : { borderColor: "rgba(255,255,255,0.12)", boxShadow: "0 0 0 0px transparent" }
       }
       transition={{ duration: 0.2 }}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      className={className}
-      {...props}
-    />
+    >
+      <input
+        onFocus={onFocus}
+        onBlur={onBlur}
+        className={`${className} border-0 shadow-none`}
+        {...props}
+      />
+    </motion.div>
   );
 }
 
@@ -114,7 +118,8 @@ function MotionSelect({
   onBlur: () => void;
 }) {
   return (
-    <motion.select
+    <motion.div
+      className="w-full rounded-xl border"
       animate={
         focused
           ? {
@@ -124,13 +129,16 @@ function MotionSelect({
           : { borderColor: "rgba(255,255,255,0.12)", boxShadow: "0 0 0 0px transparent" }
       }
       transition={{ duration: 0.2 }}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      className={className}
-      {...props}
     >
-      {children}
-    </motion.select>
+      <select
+        onFocus={onFocus}
+        onBlur={onBlur}
+        className={`${className} border-0 shadow-none`}
+        {...props}
+      >
+        {children}
+      </select>
+    </motion.div>
   );
 }
 
