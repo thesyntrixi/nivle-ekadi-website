@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion, type HTMLMotionProps } from "framer-motion";
-import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
+import { usePrefersReducedMotion, useIsMobile } from "@/hooks/use-reduced-motion";
 
 export const scrollViewport = { once: true, amount: 0.3 } as const;
 
@@ -23,25 +22,19 @@ export const scaleInVariants = {
 
 export function useMotionSettings() {
   const reduced = usePrefersReducedMotion();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 639px)");
-    const update = () => setIsMobile(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
+  const isMobile = useIsMobile();
+  const liteMotion = reduced;
 
   return {
-    reduced,
-    scrollDuration: reduced ? 0 : isMobile ? 0.5 : 0.8,
-    textDuration: reduced ? 0 : isMobile ? 0.5 : 0.7,
-    cardTransition: { duration: reduced ? 0 : 0.3, ease: "easeOut" as const },
-    buttonTransition: { duration: reduced ? 0 : 0.2, ease: "easeOut" as const },
-    hoverScale: reduced ? 1 : 1.05,
-    buttonHoverScale: reduced ? 1 : 1.02,
-    buttonTapScale: reduced ? 1 : 0.98,
+    reduced: liteMotion,
+    isMobile,
+    scrollDuration: liteMotion ? 0 : 0.8,
+    textDuration: liteMotion ? 0 : 0.7,
+    cardTransition: { duration: liteMotion ? 0 : 0.3, ease: "easeOut" as const },
+    buttonTransition: { duration: liteMotion ? 0 : 0.2, ease: "easeOut" as const },
+    hoverScale: liteMotion ? 1 : 1.05,
+    buttonHoverScale: liteMotion ? 1 : 1.02,
+    buttonTapScale: liteMotion ? 1 : 0.98,
   };
 }
 

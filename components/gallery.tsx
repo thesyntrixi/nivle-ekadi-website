@@ -9,7 +9,7 @@ import { SectionHeader } from "@/components/section-header";
 import { Reveal, StaggerReveal, StaggerItem, useMotionSettings } from "@/components/motion";
 import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
 
-const GALLERY_PRICE = "TZS 1,700";
+const GALLERY_PRICE = "TZS 1,800";
 
 function DesignCard({
   design,
@@ -25,7 +25,6 @@ function DesignCard({
 
   return (
     <motion.article
-      layout
       initial={
         reduced || !isNewlyRevealed
           ? false
@@ -34,7 +33,7 @@ function DesignCard({
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{
         ...cardTransition,
-        delay: isNewlyRevealed ? (index - 6) * 0.1 : 0,
+        delay: isNewlyRevealed && !reduced ? (index - 6) * 0.1 : 0,
       }}
       whileHover={
         reduced
@@ -55,6 +54,7 @@ function DesignCard({
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"
             sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 280px"
+            loading="lazy"
           />
         </div>
 

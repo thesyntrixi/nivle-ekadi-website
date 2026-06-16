@@ -29,7 +29,7 @@ const heroCards = [
     z: 2,
     scale: 0.95,
     opacity: 0.86,
-    price: "TZS 3,000",
+    price: "TZS 1,800",
     floatY: 14,
     floatRotate: -2.5,
   },
@@ -41,7 +41,7 @@ const heroCards = [
     z: 3,
     scale: 1,
     opacity: 1,
-    price: "TZS 3,000",
+    price: "TZS 1,800",
     floatY: 8,
     floatRotate: 1.5,
   },
@@ -56,16 +56,24 @@ export function Hero() {
   const warmBlobY = useTransform(scrollY, [0, 600], [0, reduced ? 0 : -50]);
   const visualY = useTransform(scrollY, [0, 600], [0, reduced ? 0 : 60]);
 
+  const blobClassName =
+    "pointer-events-none absolute -right-32 -top-20 size-[28rem] rounded-full bg-brand/8 blur-3xl";
+  const warmBlobClassName =
+    "pointer-events-none absolute -left-20 bottom-0 size-80 rounded-full bg-accent-warm/15 blur-3xl";
+
   return (
     <section className="relative w-full overflow-hidden bg-background pt-24 sm:pt-28">
-      <motion.div
-        style={{ y: blobY }}
-        className="pointer-events-none absolute -right-32 -top-20 size-[28rem] rounded-full bg-brand/8 blur-3xl"
-      />
-      <motion.div
-        style={{ y: warmBlobY }}
-        className="pointer-events-none absolute -left-20 bottom-0 size-80 rounded-full bg-accent-warm/15 blur-3xl"
-      />
+      {reduced ? (
+        <>
+          <div className={blobClassName} />
+          <div className={warmBlobClassName} />
+        </>
+      ) : (
+        <>
+          <motion.div style={{ y: blobY }} className={blobClassName} />
+          <motion.div style={{ y: warmBlobY }} className={warmBlobClassName} />
+        </>
+      )}
 
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:py-24">
         <motion.div
@@ -133,10 +141,10 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          style={{ y: visualY }}
+          style={reduced ? undefined : { y: visualY }}
           initial={reduced ? false : { opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: textDuration, ease: "easeOut", delay: 0.4 }}
+          transition={{ duration: reduced ? 0 : textDuration, ease: "easeOut", delay: reduced ? 0 : 0.4 }}
           className="relative z-10 flex items-center justify-center lg:justify-end"
         >
           <HeroVisual reduced={reduced} />
@@ -202,6 +210,7 @@ function HeroVisual({ reduced }: { reduced: boolean }) {
               className="object-cover"
               sizes="(max-width: 640px) 248px, 280px"
               priority={i === 2}
+              loading={i === 2 ? undefined : "lazy"}
             />
             <div className="absolute right-2 top-2 rounded-full bg-brand px-2.5 py-1 text-[10px] font-bold text-white shadow-md">
               {card.price}
@@ -210,7 +219,7 @@ function HeroVisual({ reduced }: { reduced: boolean }) {
           <div className="ticket-tear bg-background" />
           <div className="bg-card px-3 py-2">
             <p className="text-[10px] font-semibold uppercase tracking-wider text-brand">
-              NIVLE Designs
+              NIVLE E-Kadi
             </p>
           </div>
         </motion.div>

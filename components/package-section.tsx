@@ -208,7 +208,7 @@ function WhatsAppMockup({ reduced }: { reduced: boolean }) {
             N
           </div>
           <div>
-            <p className="text-sm font-medium text-white">NIVLE Designs</p>
+            <p className="text-sm font-medium text-white">NIVLE E-Kadi</p>
             <p className="text-[11px] text-[#8696a0]">online</p>
           </div>
         </div>
@@ -228,12 +228,13 @@ function WhatsAppMockup({ reduced }: { reduced: boolean }) {
                 fill
                 className="object-cover"
                 sizes="280px"
+                loading="lazy"
               />
             </div>
             <p className="px-2 py-2.5 text-[13px] leading-relaxed text-[#e9edef]">
-              Habari Asha, umekaribishwa kwenye Harusi ya Kelvin &amp; Maria.
-              Tarehe: 15 Julai 2026. Mahali: Mlimani City Mall. Tafadhali
-              thibitisha kuhudhuria:
+              Habari Kelvin! Umekaribishwa kwenye Harusi ya Harson Festo na Dativa
+              Antony. Tarehe: 02/05/2026. Mahali: Ukumbi wa African Flower.
+              Tafadhali thibitisha kuhudhuria:
             </p>
             <span className="block px-2 pb-1 text-right text-[10px] text-[#8696a0]">
               10:24
@@ -325,7 +326,7 @@ function SmsMockup({ reduced }: { reduced: boolean }) {
         </div>
 
         <div className="border-b border-foreground/8 bg-[#F2F2F7] px-4 py-3 text-center">
-          <p className="text-sm font-semibold text-foreground">NIVLE Designs</p>
+          <p className="text-sm font-semibold text-foreground">NIVLE E-Kadi</p>
           <p className="text-[11px] text-muted">Ujumbe</p>
         </div>
 
@@ -339,8 +340,8 @@ function SmsMockup({ reduced }: { reduced: boolean }) {
           >
             <div className="max-w-[92%] rounded-2xl rounded-tl-sm bg-[#E5E5EA] px-4 py-3">
               <p className="text-[13px] leading-relaxed text-foreground">
-                Habari Asha, Umealikwa kwenye karamu ya Harusi ya Kelvin &amp;
-                Maria. Tarehe: 15 Julai 2026. Mahali: Mlimani City Mall.
+                Habari Kelvin! Umealikwa kwenye karamu ya Harusi ya Harson Festo na
+                Dativa Antony. Tarehe: 02/05/2026. Mahali: Ukumbi wa African Flower.
                 Karibu!
               </p>
               <p className="mt-2 text-[13px] font-medium text-foreground">
@@ -380,7 +381,7 @@ function SmsMockup({ reduced }: { reduced: boolean }) {
               className="max-w-[92%] rounded-2xl rounded-tl-sm bg-[#E5E5EA] px-4 py-3"
             >
               <p className="text-[13px] leading-relaxed text-foreground">
-                Asante Asha! Uthibitisho wako umepokelewa:{" "}
+                Asante Kelvin! Uthibitisho wako umepokelewa:{" "}
                 <span className="font-semibold text-brand">Nitakuwepo ✅</span>
               </p>
               <span className="mt-1 block text-right text-[10px] text-muted">
