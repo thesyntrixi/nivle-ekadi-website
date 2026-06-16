@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/constants";
@@ -67,9 +68,16 @@ export function Navigation() {
             initial={reduced ? false : { opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="font-display text-xl font-bold tracking-tight text-text-on-dark sm:text-2xl"
+            className="inline-flex shrink-0 items-center"
           >
-            NIVLE Designs
+            <Image
+              src="/logo-03.png"
+              alt="NIVLE Designs"
+              width={160}
+              height={40}
+              className="h-8 w-auto sm:h-9"
+              priority
+            />
           </motion.a>
 
           <div className="hidden items-center gap-8 sm:flex">
