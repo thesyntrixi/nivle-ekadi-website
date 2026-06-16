@@ -3,13 +3,8 @@
 import { useEffect, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 
-function getInitialIsMobile(): boolean {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(max-width: 639px)").matches;
-}
-
 export function useIsMobile(): boolean {
-  const [isMobile, setIsMobile] = useState(getInitialIsMobile);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 639px)");
