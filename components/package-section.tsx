@@ -104,7 +104,7 @@ export function PackageSection() {
           </div>
         </Reveal>
 
-        <StaggerReveal className="mt-14 grid gap-6 md:grid-cols-3" stagger={0.1}>
+        <StaggerReveal className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3" stagger={0.1}>
           {packages.map((pkg) => (
             <StaggerItem key={pkg.name}>
               <motion.div

@@ -71,7 +71,7 @@ function getSelectedDesign(selectedDesign: string | null) {
   return DESIGNS.find((d) => d.id === selectedDesign) ?? null;
 }
 
-const labelClass = "mb-1.5 block text-left text-sm font-medium text-text-on-dark";
+const labelClass = "mb-1.5 block text-left text-sm font-medium text-white";
 
 function MotionInput({
   focused,
@@ -145,7 +145,7 @@ function MotionSelect({
 }
 
 const inputBaseClass =
-  "w-full rounded-xl border bg-dark-surface px-4 py-3 text-sm text-text-on-dark placeholder:text-text-muted-on-dark/60 outline-none transition-colors";
+  "w-full rounded-xl border bg-dark-surface px-4 py-3 text-sm text-white placeholder:text-white/50 outline-none transition-colors [color-scheme:dark]";
 
 const slideVariants = {
   enter: (direction: number) => ({
@@ -165,7 +165,7 @@ const slideVariants = {
 function StepIndicator({ step, reduced }: { step: number; reduced: boolean }) {
   return (
     <div className="mb-6 flex flex-col items-center gap-3">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted-on-dark">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/80">
         Hatua {step} / {TOTAL_STEPS}
       </p>
       <div className="flex items-center gap-2">
@@ -200,10 +200,10 @@ function StepIndicator({ step, reduced }: { step: number; reduced: boolean }) {
 function SummaryRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-0.5 border-b border-white/8 py-3 last:border-0">
-      <span className="text-xs font-medium uppercase tracking-wide text-text-muted-on-dark">
+      <span className="text-xs font-medium uppercase tracking-wide text-white/75">
         {label}
       </span>
-      <span className="text-sm text-text-on-dark">{value || "—"}</span>
+      <span className="text-sm text-white">{value || "—"}</span>
     </div>
   );
 }
@@ -307,7 +307,7 @@ export function CtaSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: textDuration, ease: "easeOut", delay: 0.2 }}
-              className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-text-muted-on-dark sm:text-lg"
+              className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg"
             >
               Jaza maelezo yako, tutakupigia simu au kukuandikia WhatsApp
             </motion.p>
@@ -365,7 +365,7 @@ export function CtaSection() {
                           transition={slideTransition}
                           className="space-y-5"
                         >
-                          <h3 className="font-display text-lg font-semibold text-text-on-dark">
+                          <h3 className="font-display text-lg font-semibold text-white">
                             Taarifa Zako
                           </h3>
                           <div>
@@ -423,7 +423,7 @@ export function CtaSection() {
                           transition={slideTransition}
                           className="space-y-5"
                         >
-                          <h3 className="font-display text-lg font-semibold text-text-on-dark">
+                          <h3 className="font-display text-lg font-semibold text-white">
                             Taarifa za Tukio
                           </h3>
                           <div>
@@ -518,10 +518,10 @@ export function CtaSection() {
                           transition={slideTransition}
                           className="space-y-4"
                         >
-                          <h3 className="font-display text-lg font-semibold text-text-on-dark">
+                          <h3 className="font-display text-lg font-semibold text-white">
                             Chagua Design
                           </h3>
-                          <p className="text-sm text-text-muted-on-dark">
+                          <p className="text-sm text-white/85">
                             Chagua design unayopenda, au ruka hatua hii
                           </p>
                           <div className="grid max-h-[340px] grid-cols-2 gap-3 overflow-y-auto pr-1 sm:grid-cols-3">
@@ -553,7 +553,7 @@ export function CtaSection() {
                                     <p className="truncate text-xs font-medium text-text-on-dark">
                                       {design.name}
                                     </p>
-                                    <p className="truncate text-[10px] text-text-muted-on-dark">
+                                    <p className="truncate text-[10px] text-white/70">
                                       {design.eventType}
                                     </p>
                                   </div>
@@ -578,7 +578,7 @@ export function CtaSection() {
                                   : "border-white/10 hover:border-white/25"
                               }`}
                             >
-                              <ImageOff className="size-6 text-text-muted-on-dark" />
+                              <ImageOff className="size-6 text-white/70" />
                               <span className="text-xs font-medium leading-snug text-text-on-dark">
                                 Sina design maalum bado
                               </span>
@@ -603,7 +603,7 @@ export function CtaSection() {
                           transition={slideTransition}
                           className="space-y-4"
                         >
-                          <h3 className="font-display text-lg font-semibold text-text-on-dark">
+                          <h3 className="font-display text-lg font-semibold text-white">
                             Muhtasari
                           </h3>
                           <div className="rounded-xl border border-white/8 bg-dark px-4">
@@ -614,7 +614,7 @@ export function CtaSection() {
                             <SummaryRow label="Mahali" value={form.mahali} />
                             <SummaryRow label="Idadi ya waalikwa" value={form.waalikwa} />
                             <div className="flex flex-col gap-2 border-b border-white/8 py-3 last:border-0">
-                              <span className="text-xs font-medium uppercase tracking-wide text-text-muted-on-dark">
+                              <span className="text-xs font-medium uppercase tracking-wide text-white/75">
                                 Design uliyochagua
                               </span>
                               {selectedDesignData ? (
@@ -637,7 +637,7 @@ export function CtaSection() {
                                   Sina design maalum bado
                                 </span>
                               ) : (
-                                <span className="text-sm text-text-muted-on-dark">
+                                <span className="text-sm text-white/75">
                                   Hakuna - bado
                                 </span>
                               )}

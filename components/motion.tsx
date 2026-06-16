@@ -58,9 +58,13 @@ export function Reveal({
         ? scaleInVariants
         : fadeUpVariants;
 
+  if (reduced) {
+    return <div className={className}>{children as React.ReactNode}</div>;
+  }
+
   return (
     <motion.div
-      initial={reduced ? false : "hidden"}
+      initial="hidden"
       whileInView="visible"
       viewport={scrollViewport}
       variants={variants}
@@ -82,11 +86,15 @@ export function StaggerReveal({
   className?: string;
   stagger?: number;
 }) {
-  const { reduced, scrollDuration } = useMotionSettings();
+  const { reduced } = useMotionSettings();
+
+  if (reduced) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
-      initial={reduced ? false : "hidden"}
+      initial="hidden"
       whileInView="visible"
       viewport={scrollViewport}
       variants={{
@@ -111,6 +119,10 @@ export function StaggerItem({
 }) {
   const { reduced, scrollDuration } = useMotionSettings();
 
+  if (reduced) {
+    return <div className={className}>{children}</div>;
+  }
+
   const hidden =
     from === "left"
       ? { opacity: 0, x: -30 }
@@ -120,19 +132,15 @@ export function StaggerItem({
 
   return (
     <motion.div
-      variants={
-        reduced
-          ? undefined
-          : {
-              hidden,
-              visible: {
-                opacity: 1,
-                x: 0,
-                y: 0,
-                transition: { duration: scrollDuration, ease: "easeOut" },
-              },
-            }
-      }
+      variants={{
+        hidden,
+        visible: {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          transition: { duration: scrollDuration, ease: "easeOut" },
+        },
+      }}
       className={className}
     >
       {children}

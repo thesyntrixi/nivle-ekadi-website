@@ -44,7 +44,7 @@ export function HowItWorks() {
           />
         </Reveal>
 
-        <StaggerReveal className="mt-14 grid gap-6 sm:grid-cols-3 sm:gap-8" stagger={0.1}>
+        <StaggerReveal className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-8" stagger={0.1}>
           {steps.map((step, i) => (
             <StaggerItem key={step.number}>
               <motion.div
