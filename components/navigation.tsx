@@ -74,8 +74,8 @@ export function Navigation() {
               src="/logo-03.png"
               alt="NIVLE Designs"
               width={160}
-              height={40}
-              className="h-8 w-auto sm:h-9"
+              height={60}
+              className="h-10 w-auto sm:h-12"
               priority
             />
           </motion.a>
