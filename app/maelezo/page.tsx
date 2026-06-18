@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-const WHATSAPP_URL = "https://wa.me/255798987859";
+const WHATSAPP_URL = "https://wa.me/255767987878";
 
 export default function MaelezoPage() {
   return (

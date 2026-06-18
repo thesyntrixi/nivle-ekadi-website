@@ -1,4 +1,4 @@
-export const WHATSAPP_NUMBER = "255798987859";
+export const WHATSAPP_NUMBER = "255767987878";
 
 /** Client-uploaded card images in public/ */
 export const CARD_IMAGES = [

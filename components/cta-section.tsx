@@ -7,7 +7,7 @@ import { Reveal, useMotionSettings } from "@/components/motion";
 import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
 import type { PublicCard } from "@/lib/public-cards";
 
-const WHATSAPP_NUMBER = "255798987859";
+const WHATSAPP_NUMBER = "255767987878";
 const TOTAL_STEPS = 4;
 const NO_DESIGN_ID = "none";
 
