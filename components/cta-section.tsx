@@ -73,6 +73,12 @@ function getSelectedDesign(selectedDesign: string | null) {
 
 const labelClass = "mb-1.5 block text-left text-sm font-medium text-white";
 
+const inputWrapperClass =
+  "w-full rounded-xl border border-white/20 bg-[#0f1117]";
+
+const inputBaseClass =
+  "w-full rounded-xl bg-[#0f1117] px-4 py-3 text-sm text-white placeholder:text-white/60 outline-none transition-colors [color-scheme:dark] autofill:text-white autofill:shadow-[inset_0_0_0px_1000px_#0f1117]";
+
 function MotionInput({
   focused,
   onFocus,
@@ -86,14 +92,14 @@ function MotionInput({
 }) {
   return (
     <motion.div
-      className="w-full rounded-xl border"
+      className={inputWrapperClass}
       animate={
         focused
           ? {
               borderColor: "rgba(0, 102, 255, 0.6)",
               boxShadow: "0 0 0 3px rgba(0, 102, 255, 0.15)",
             }
-          : { borderColor: "rgba(255,255,255,0.12)", boxShadow: "0 0 0 0px transparent" }
+          : { borderColor: "rgba(255,255,255,0.2)", boxShadow: "0 0 0 0px transparent" }
       }
       transition={{ duration: 0.2 }}
     >
@@ -121,14 +127,14 @@ function MotionSelect({
 }) {
   return (
     <motion.div
-      className="w-full rounded-xl border"
+      className={inputWrapperClass}
       animate={
         focused
           ? {
               borderColor: "rgba(0, 102, 255, 0.6)",
               boxShadow: "0 0 0 3px rgba(0, 102, 255, 0.15)",
             }
-          : { borderColor: "rgba(255,255,255,0.12)", boxShadow: "0 0 0 0px transparent" }
+          : { borderColor: "rgba(255,255,255,0.2)", boxShadow: "0 0 0 0px transparent" }
       }
       transition={{ duration: 0.2 }}
     >
@@ -143,9 +149,6 @@ function MotionSelect({
     </motion.div>
   );
 }
-
-const inputBaseClass =
-  "w-full rounded-xl border bg-dark-surface px-4 py-3 text-sm text-white placeholder:text-white/50 outline-none transition-colors [color-scheme:dark]";
 
 const slideVariants = {
   enter: (direction: number) => ({
@@ -315,9 +318,10 @@ export function CtaSection() {
 
           <motion.div
             initial={reduced ? false : { opacity: 0, scale: 0.96, y: 24 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            animate={reduced ? { opacity: 1, scale: 1, y: 0 } : undefined}
+            whileInView={reduced ? undefined : { opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
+            transition={{ duration: reduced ? 0 : 0.7, ease: "easeOut", delay: reduced ? 0 : 0.15 }}
             className="mt-10 overflow-hidden rounded-2xl border border-white/10 bg-dark-surface p-5 shadow-xl shadow-black/20 sm:p-7"
           >
             <AnimatePresence mode="wait">
@@ -352,7 +356,7 @@ export function CtaSection() {
                 <motion.div key="wizard">
                   <StepIndicator step={step} reduced={reduced} />
 
-                  <div className="relative min-h-[280px] overflow-hidden">
+                  <div className="relative min-h-[280px]">
                     <AnimatePresence mode="wait" custom={direction}>
                       {step === 1 && (
                         <motion.div
@@ -360,7 +364,7 @@ export function CtaSection() {
                           custom={direction}
                           variants={reduced ? undefined : slideVariants}
                           initial={reduced ? false : "enter"}
-                          animate="center"
+                          animate={reduced ? { opacity: 1, x: 0 } : "center"}
                           exit={reduced ? undefined : "exit"}
                           transition={slideTransition}
                           className="space-y-5"
@@ -418,7 +422,7 @@ export function CtaSection() {
                           custom={direction}
                           variants={reduced ? undefined : slideVariants}
                           initial={reduced ? false : "enter"}
-                          animate="center"
+                          animate={reduced ? { opacity: 1, x: 0 } : "center"}
                           exit={reduced ? undefined : "exit"}
                           transition={slideTransition}
                           className="space-y-5"
@@ -440,11 +444,11 @@ export function CtaSection() {
                               onBlur={() => setFocusedField(null)}
                               className={inputBaseClass}
                             >
-                              <option value="" disabled>
+                              <option value="" disabled className="bg-[#0f1117] text-white">
                                 Chagua aina ya tukio
                               </option>
                               {EVENT_TYPES.map((type) => (
-                                <option key={type} value={type}>
+                                <option key={type} value={type} className="bg-[#0f1117] text-white">
                                   {type}
                                 </option>
                               ))}
@@ -513,7 +517,7 @@ export function CtaSection() {
                           custom={direction}
                           variants={reduced ? undefined : slideVariants}
                           initial={reduced ? false : "enter"}
-                          animate="center"
+                          animate={reduced ? { opacity: 1, x: 0 } : "center"}
                           exit={reduced ? undefined : "exit"}
                           transition={slideTransition}
                           className="space-y-4"
@@ -598,7 +602,7 @@ export function CtaSection() {
                           custom={direction}
                           variants={reduced ? undefined : slideVariants}
                           initial={reduced ? false : "enter"}
-                          animate="center"
+                          animate={reduced ? { opacity: 1, x: 0 } : "center"}
                           exit={reduced ? undefined : "exit"}
                           transition={slideTransition}
                           className="space-y-4"
