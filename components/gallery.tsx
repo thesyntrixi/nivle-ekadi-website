@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { SectionHeader } from "@/components/section-header";
@@ -49,13 +48,11 @@ function DesignCard({
     >
       <div className="overflow-hidden rounded-2xl border border-foreground/6 bg-card shadow-md shadow-foreground/5 transition-shadow duration-300 group-hover:border-brand/20 group-hover:shadow-xl group-hover:shadow-brand/15">
         <div className="relative aspect-[3/4] w-full overflow-hidden">
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src={design.image_url}
             alt={design.name}
-            fill
-            unoptimized
-            className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"
-            sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 280px"
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
             loading="lazy"
           />
         </div>
@@ -84,11 +81,13 @@ export function Gallery() {
     fetchPublicCards()
       .then((cards) => {
         if (!mounted) return;
+        console.log('Designs Zetu gallery cards loaded:', cards.length);
         setDesigns(cards);
         setLoadError(cards.length === 0);
       })
-      .catch(() => {
+      .catch((error) => {
         if (!mounted) return;
+        console.error('Designs Zetu gallery fetch error:', error);
         setDesigns([]);
         setLoadError(true);
       })
