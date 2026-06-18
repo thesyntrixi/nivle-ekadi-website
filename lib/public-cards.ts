@@ -5,8 +5,11 @@ export type PublicCard = {
   created_at: string;
 };
 
-/** Same-origin proxy avoids browser CORS when calling the admin API. */
-export const PUBLIC_CARDS_API_URL = '/api/gallery-cards';
+export const ADMIN_CARDS_API_URL =
+  process.env.ADMIN_CARDS_API_URL ??
+  'https://admin.nivle-ekadi.com/api/public/cards';
+
+export const GALLERY_REVALIDATE_SECONDS = 60;
 
 export function normalizePublicCards(data: unknown): PublicCard[] {
   if (!Array.isArray(data)) return [];
@@ -28,20 +31,22 @@ export function normalizePublicCards(data: unknown): PublicCard[] {
     }));
 }
 
-export async function fetchPublicCards(): Promise<PublicCard[]> {
-  const response = await fetch(PUBLIC_CARDS_API_URL, { cache: 'no-store' });
+/** Server-side fetch with ISR — used by Gallery and /api/gallery-cards proxy. */
+export async function getPublicCards(): Promise<PublicCard[]> {
+  try {
+    const response = await fetch(ADMIN_CARDS_API_URL, {
+      next: { revalidate: GALLERY_REVALIDATE_SECONDS },
+    });
 
-  console.log('Designs Zetu fetch status:', response.status, response.ok);
+    if (!response.ok) {
+      console.error('getPublicCards: admin API error', response.status);
+      return [];
+    }
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch public cards: ${response.status}`);
+    const data = await response.json();
+    return normalizePublicCards(data);
+  } catch (error) {
+    console.error('getPublicCards: fetch failed', error);
+    return [];
   }
-
-  const data = await response.json();
-  console.log('Designs Zetu fetch raw response:', data);
-
-  const cards = normalizePublicCards(data);
-  console.log('Designs Zetu normalized cards:', cards.length, cards);
-
-  return cards;
 }
