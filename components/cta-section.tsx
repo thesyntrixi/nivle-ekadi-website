@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ImageOff } from "lucide-react";
 import { Reveal, useMotionSettings } from "@/components/motion";
 import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
-import { DESIGNS } from "@/lib/designs-data";
+import type { PublicCard } from "@/lib/public-cards";
 
 const WHATSAPP_NUMBER = "255798987859";
 const TOTAL_STEPS = 4;
@@ -44,31 +43,54 @@ const initialForm: FormData = {
 
 type ValidationErrors = Partial<Record<keyof FormData, string>>;
 
-function formatWhatsAppMessage(data: FormData, designLabel: string): string {
-  return `Habari NIVLE Designs, ningependa kuagiza mwaliko:
+function formatWhatsAppMessage(
+  data: FormData,
+  selectedDesign: string | null,
+  cards: PublicCard[],
+): string {
+  const card =
+    selectedDesign && selectedDesign !== NO_DESIGN_ID
+      ? cards.find((c) => c.id === selectedDesign)
+      : null;
 
-Jina: ${data.jina}
-Namba ya simu: ${data.simu}
-Aina ya tukio: ${data.tukio}
-Tarehe: ${data.tarehe || "—"}
-Mahali: ${data.mahali || "—"}
-Idadi ya waalikwa: ${data.waalikwa || "—"}
-Design niliyochagua: ${designLabel}`;
+  let designLine = "Bado sijachagua";
+  if (selectedDesign === NO_DESIGN_ID) {
+    designLine = "Sina design maalum bado";
+  } else if (card) {
+    designLine = card.name;
+  }
+
+  const lines = [
+    "Habari NIVLE Designs, ningependa kuagiza mwaliko:",
+    "",
+    `Jina: ${data.jina}`,
+    `Namba ya simu: ${data.simu}`,
+    `Aina ya tukio: ${data.tukio}`,
+    `Tarehe: ${data.tarehe || "—"}`,
+    `Mahali: ${data.mahali || "—"}`,
+    `Idadi ya waalikwa: ${data.waalikwa || "—"}`,
+    "",
+    `Design niliyochagua: ${designLine}`,
+  ];
+
+  if (card) {
+    lines.push(`Jina la kadi: ${card.name}`);
+    lines.push(`Kiungo cha picha: ${card.image_url}`);
+  }
+
+  return lines.join("\n");
 }
 
 function buildWhatsAppUrl(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
-function getDesignLabel(selectedDesign: string | null): string {
-  if (!selectedDesign) return "Bado sijachagua";
-  if (selectedDesign === NO_DESIGN_ID) return "Sina design maalum bado";
-  return DESIGNS.find((d) => d.id === selectedDesign)?.name ?? "Bado sijachagua";
-}
-
-function getSelectedDesign(selectedDesign: string | null) {
+function getSelectedCard(
+  cards: PublicCard[],
+  selectedDesign: string | null,
+): PublicCard | null {
   if (!selectedDesign || selectedDesign === NO_DESIGN_ID) return null;
-  return DESIGNS.find((d) => d.id === selectedDesign) ?? null;
+  return cards.find((c) => c.id === selectedDesign) ?? null;
 }
 
 const labelClass = "mb-1.5 block text-left text-sm font-medium text-white";
@@ -220,9 +242,35 @@ export function CtaSection() {
   const [loading, setLoading] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [validation, setValidation] = useState<ValidationErrors>({});
+  const [websiteCards, setWebsiteCards] = useState<PublicCard[]>([]);
+  const [cardsLoading, setCardsLoading] = useState(true);
   const reduced = usePrefersReducedMotion();
   const { textDuration, buttonHoverScale, buttonTapScale, buttonTransition } =
     useMotionSettings();
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadCards() {
+      try {
+        const response = await fetch("/api/gallery-cards");
+        if (!response.ok) throw new Error("Failed to load cards");
+        const data: unknown = await response.json();
+        if (!cancelled) {
+          setWebsiteCards(Array.isArray(data) ? (data as PublicCard[]) : []);
+        }
+      } catch {
+        if (!cancelled) setWebsiteCards([]);
+      } finally {
+        if (!cancelled) setCardsLoading(false);
+      }
+    }
+
+    loadCards();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -280,13 +328,13 @@ export function CtaSection() {
   async function handleSubmit() {
     setLoading(true);
     await new Promise((r) => setTimeout(r, 600));
-    const message = formatWhatsAppMessage(form, getDesignLabel(selectedDesign));
+    const message = formatWhatsAppMessage(form, selectedDesign, websiteCards);
     window.open(buildWhatsAppUrl(message), "_blank", "noopener,noreferrer");
     setLoading(false);
     setSubmitted(true);
   }
 
-  const selectedDesignData = getSelectedDesign(selectedDesign);
+  const selectedCard = getSelectedCard(websiteCards, selectedDesign);
   const slideTransition = reduced
     ? { duration: 0 }
     : { duration: 0.35, ease: "easeInOut" as const };
@@ -529,14 +577,19 @@ export function CtaSection() {
                             Chagua design unayopenda, au ruka hatua hii
                           </p>
                           <div className="grid max-h-[340px] grid-cols-2 gap-3 overflow-y-auto pr-1 sm:grid-cols-3">
-                            {DESIGNS.map((design) => {
-                              const isSelected = selectedDesign === design.id;
+                            {cardsLoading ? (
+                              <p className="col-span-full text-sm text-white/85">
+                                Inapakia designs...
+                              </p>
+                            ) : (
+                              websiteCards.map((card) => {
+                              const isSelected = selectedDesign === card.id;
                               return (
                                 <button
-                                  key={design.id}
+                                  key={card.id}
                                   type="button"
                                   onClick={() =>
-                                    setSelectedDesign(isSelected ? null : design.id)
+                                    setSelectedDesign(isSelected ? null : card.id)
                                   }
                                   className={`relative block w-full overflow-hidden rounded-xl border-2 text-left transition-colors ${
                                     isSelected
@@ -545,20 +598,17 @@ export function CtaSection() {
                                   }`}
                                 >
                                   <div className="relative aspect-[4/5] w-full min-h-[100px] overflow-hidden bg-white/5">
-                                    <Image
-                                      src={design.image}
-                                      alt={design.name}
-                                      width={200}
-                                      height={250}
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                      src={card.image_url}
+                                      alt={card.name}
                                       className="size-full object-cover"
+                                      loading="lazy"
                                     />
                                   </div>
                                   <div className="px-2 py-2">
-                                    <p className="truncate text-xs font-medium text-text-on-dark">
-                                      {design.name}
-                                    </p>
-                                    <p className="truncate text-[10px] text-white/70">
-                                      {design.eventType}
+                                    <p className="truncate text-xs font-medium text-white">
+                                      {card.name}
                                     </p>
                                   </div>
                                   {isSelected && (
@@ -568,7 +618,8 @@ export function CtaSection() {
                                   )}
                                 </button>
                               );
-                            })}
+                            })
+                            )}
                             <button
                               type="button"
                               onClick={() =>
@@ -621,19 +672,18 @@ export function CtaSection() {
                               <span className="text-xs font-medium uppercase tracking-wide text-white/75">
                                 Design uliyochagua
                               </span>
-                              {selectedDesignData ? (
+                              {selectedCard ? (
                                 <div className="flex items-center gap-3">
                                   <div className="relative size-14 shrink-0 overflow-hidden rounded-lg border border-white/10">
-                                    <Image
-                                      src={selectedDesignData.image}
-                                      alt={selectedDesignData.name}
-                                      fill
-                                      className="object-cover"
-                                      sizes="56px"
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                      src={selectedCard.image_url}
+                                      alt={selectedCard.name}
+                                      className="size-full object-cover"
                                     />
                                   </div>
-                                  <span className="text-sm text-text-on-dark">
-                                    {selectedDesignData.name}
+                                  <span className="text-sm text-white">
+                                    {selectedCard.name}
                                   </span>
                                 </div>
                               ) : selectedDesign === NO_DESIGN_ID ? (
