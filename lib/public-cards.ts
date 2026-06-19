@@ -9,7 +9,7 @@ export const ADMIN_CARDS_API_URL =
   process.env.ADMIN_CARDS_API_URL ??
   'https://admin.nivle-ekadi.com/api/public/cards';
 
-export const GALLERY_REVALIDATE_SECONDS = 60;
+export const GALLERY_REVALIDATE_SECONDS = 10;
 
 export function normalizePublicCards(data: unknown): PublicCard[] {
   if (!Array.isArray(data)) return [];
