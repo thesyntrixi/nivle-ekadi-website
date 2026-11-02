@@ -8,7 +8,7 @@ import { SectionHeader } from "@/components/section-header";
 import { Reveal, StaggerReveal, StaggerItem, useMotionSettings } from "@/components/motion";
 import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
 
-const GALLERY_PRICE = "TZS 1,800";
+const GALLERY_PRICE = "TZS 1,500";
 const FALLBACK_MESSAGE = "Designs zinaongezwa hivi karibuni";
 
 function DesignCard({

@@ -10,7 +10,7 @@ import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
 const packages = [
   {
     name: "Basic",
-    price: "1,800",
+    price: "1,500",
     unit: "/kadi",
     bg: "#FFE5E5",
     text: "#3D2020",

@@ -54,7 +54,7 @@ export function getPricingTiers(design: Design): PricingTier[] {
     ];
   }
   return [
-    { id: "design", label: "Design Tu", shortLabel: "Design", price: 1800 },
+    { id: "design", label: "Design Tu", shortLabel: "Design", price: 1500 },
     { id: "sms", label: "+ SMS", shortLabel: "+ SMS", price: 2100 },
     { id: "full", label: "+ WhatsApp & RSVP", shortLabel: "+ WhatsApp", price: 3000, recommended: true },
   ];
